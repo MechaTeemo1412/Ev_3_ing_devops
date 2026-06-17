@@ -26,6 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          cd NexusHealth
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=MechaTeemo1412_Evaluaci-n_3_Ing_Devops -Dsonar.organization=mechateemo1412 -Dsonar.host.url=https://sonarcloud.io
 
       - name: Validar Quality Gate
@@ -37,7 +38,6 @@ jobs:
           args: >
             -Dsonar.qualitygate.wait=true
 
-      # --- ESTOS SON LOS PASOS QUE FALTABAN ---
       - name: Configurar credenciales de AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -49,13 +49,13 @@ jobs:
       - name: Iniciar sesión en Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-      # ----------------------------------------
 
       - name: Construir, etiquetar y subir imagen a ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ev-3-ing-devops 
+          ECR_REPOSITORY: nexushealth-backend 
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          cd NexusHealth
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
