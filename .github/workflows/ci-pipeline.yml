@@ -27,7 +27,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd ms-agenda
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests -Dsonar.projectKey=MechaTeemo1412_Ev_3_ing_devops -Dsonar.organization=mechateemo1412 -Dsonar.host.url=https://sonarcloud.io -Dsonar.qualitygate.wait=true
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests -Dsonar.projectKey=MechaTeemo1412_Ev_3_ing_devops -Dsonar.organization=mechateemo1412 -Dsonar.host.url=https://sonarcloud.io
 
       - name: Validar Quality Gate
         uses: sonarsource/sonarcloud-github-action@master
