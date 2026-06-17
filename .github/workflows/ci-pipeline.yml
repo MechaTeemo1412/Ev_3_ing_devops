@@ -26,7 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          cd NexusHealth
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=MechaTeemo1412_Evaluaci-n_3_Ing_Devops -Dsonar.organization=mechateemo1412 -Dsonar.host.url=https://sonarcloud.io
 
       - name: Validar Quality Gate
@@ -58,6 +57,5 @@ jobs:
           ECR_REPOSITORY: ev-3-ing-devops 
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd NexusHealth
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
